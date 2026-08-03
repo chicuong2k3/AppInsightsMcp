@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "description": "MCP server for Azure Application Insights — query logs, metrics, traces, and exceptions.",
+  "name": "AppInsightsMcp",
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "nuget",
+      "identifier": "AppInsightsMcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [],
+      "environmentVariables": [
+        {
+          "name": "ApplicationInsights__WorkspaceId",
+          "description": "Log Analytics workspace ID (GUID)",
+          "required": true
+        },
+        {
+          "name": "ApplicationInsights__ResourceId",
+          "description": "Full Azure resource ID of the Application Insights component",
+          "required": true
+        }
+      ]
+    }
+  ]
+}
