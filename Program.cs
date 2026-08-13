@@ -1,9 +1,16 @@
+// AppInsightsMcp - MCP server exposing Application Insights data (logs, metrics, traces) as tools over stdio.
 using AppInsightsMcp.Configuration;
 using AppInsightsMcp.Services;
 using AppInsightsMcp.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
+if (args is ["--selftest"])
+{
+    Kql.SelfTest();
+    return;
+}
 
 var builder = Host.CreateApplicationBuilder(args);
 

@@ -2,16 +2,19 @@
 
 MCP server for Azure Application Insights — lets AI agents query logs, metrics, traces, and exceptions via KQL and Azure Monitor APIs.
 
-## Tools (16)
+## Tools (12)
+
+Every wrapper takes an optional `filter` (a raw KQL where-clause, e.g. `OperationName has 'api/Events'`)
+and a `timeRange` string (`30m`, `12h`, `7d`, or a bare number of minutes).
 
 ### Log Queries
 | Tool | Description |
 |---|---|
-| `query_logs` | Execute arbitrary KQL against Log Analytics workspace |
+| `query_logs` | Execute arbitrary KQL against Log Analytics workspace (description lists the common columns) |
 | `get_exceptions` | Recent exceptions, ordered by timestamp |
 | `get_slow_requests` | Slowest requests by duration |
 | `get_dependencies` | Dependency call summary by target |
-| `get_availability` | Availability test results |
+| `get_dependency_breakdown` | Per-operation dependency cost: calls/request and ms/request — N+1 detection |
 | `get_failed_requests` | Failed requests, optionally filtered by status prefix |
 | `get_request_summary` | Request count, success/failure rate, duration percentiles |
 | `get_operation_summary` | Operation-level aggregation: count, duration, failure rate |
@@ -20,9 +23,6 @@ MCP server for Azure Application Insights — lets AI agents query logs, metrics
 | Tool | Description |
 |---|---|
 | `get_metrics` | Query any Azure Monitor metric |
-| `get_cpu_metrics` | CPU usage percentage |
-| `get_memory_metrics` | Memory usage |
-| `get_request_metrics` | Request rate, duration, failure count |
 
 ### Trace & Diagnostics
 | Tool | Description |
@@ -69,6 +69,7 @@ Environment variable overrides:
 
 ```bash
 dotnet build
+dotnet run -- --selftest   # checks timeRange/filter parsing
 ```
 
 ## Architecture
